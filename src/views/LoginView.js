@@ -3,10 +3,10 @@ import { useRouter } from 'vue-router'
 import { authService } from '@/services/api'
 import { notificationStore } from '@/stores/notification'
 
-export default function useLogin(){
+export default function useLogin() {
   const router = useRouter()
 
-  const email= ref('')
+  const email = ref('')
   const password = ref('')
   const errorMessage = ref('')
   const isLoading = ref(false)
@@ -18,15 +18,17 @@ export default function useLogin(){
       
       const response = await authService.login(email.value, password.value)
       //recuperer le token
-      localStorage.setItem('token',response.data.token)
+      localStorage.setItem('token', response.data.token)
       
-      if (response.data.user){
-        localStorage.setItem('user',JSON.stringify(response.data.user))
+      if (response.data){
+        localStorage.setItem('user',JSON.stringify(response.data))
       }
       
       notificationStore.showNotification('Connexion réussie !', 'success')
       
-      //on verra vers quoi on redirige peut etre un tableau de bord
+      //notifier la sidebar pour afficher les elements accessibles
+      window.dispatchEvent(new Event('storage'))
+      //renvoyer vers le classement
       router.push('/')
     } catch (error) {
       console.error('Erreur de connexion:', error)

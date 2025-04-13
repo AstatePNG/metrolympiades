@@ -1,60 +1,52 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { onMounted, provide, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { notificationStore } from './stores/notification'
+import Sidebar from './components/Sidebar.vue'
 
 const router = useRouter()
-const isAuthenticated = computed(() => !!localStorage.getItem('token'))
+const isAuthenticated = ref(!!localStorage.getItem('token'))
 
-const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  notificationStore.showNotification('Vous avez été déconnecté avec succès')
-  router.push('/login')
+//donner accès à l'authentification aux composants
+provide('isAuthenticated', isAuthenticated)
+
+const checkAuth =() => {
+  isAuthenticated.value = !!localStorage.getItem('token')
+  console.log("App - État d'authentification:", isAuthenticated.value)
 }
+//a chaque changement de route 
+watch(() => router.currentRoute.value, () =>{
+  checkAuth()
+})
 
 onMounted(() => {
+  checkAuth()
   //renvoyer vers le login si non connecté
   const currentRoute = router.currentRoute.value
-  if (currentRoute.meta.requiresAuth && !isAuthenticated.value){
+  if (currentRoute.meta.requiresAuth && !isAuthenticated.value) {
     router.push('/login')
   }
 })
 </script>
 
 <template>
-  <header>
-    <nav>
-      <router-link to="/">Classement</router-link>
-      <span v-if="!isAuthenticated">
-        <router-link to="/login">Se connecter</router-link>
-        <router-link to="/register">S'inscrire</router-link>
-      </span>
-      <span v-else>
-        <router-link to="/team">Mon Équipe</router-link>
-        <router-link to="/games">Mes Matchs</router-link>
-        <router-link to="/games/create">Créer un Match</router-link>
-        <router-link to="/logout" @click.prevent="logout">Se déconnecter</router-link>
-      </span>
-    </nav>
-  </header>
-  <div v-if="notificationStore.show" 
-       class="notification" 
-       :class="notificationStore.type">
-    {{ notificationStore.message}}
-    <button class="close-btn" @click="notificationStore.hide">&times;</button>
+  <div class="app-container">
+    <Sidebar />
+    <div class="content-container">
+      <div v-if="notificationStore.show" 
+           class="notification" 
+           :class="notificationStore.type">
+        {{ notificationStore.message }}
+        <button class="close-btn" @click="notificationStore.hide">&times;</button>
+      </div>
+      <main>
+        <router-view />
+      </main>
+    </div>
   </div>
-
-  <main>
-    <router-view />
-  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
+<style>
 .notification {
   position: fixed;
   top: 20px;
@@ -88,15 +80,64 @@ header {
   margin-left: 10px;
 }
 
-@media (min-width: 1024px) {
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.form-group {
+  margin-bottom: 1.5rem;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.primary {
+  background-color: #4ecca3;
+  color: white;
+}
+
+.primary:hover {
+  background-color: #3aa889;
+}
+
+.primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #f44336;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    margin-left: 0;
+    padding-top: 80px;
+  }
+  
+  .notification {
+    width: 90%;
+    right: 5%;
   }
 }
 </style>
