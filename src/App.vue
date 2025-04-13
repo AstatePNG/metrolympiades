@@ -1,19 +1,44 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { computed,onMounted } from 'vue'
+import {useRouter } from 'vue-router'
+
+const router = useRouter()
+const isAuthenticated = computed(() => !!localStorage.getItem('token'))
+
+const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  router.push('/login')
+}
+
+onMounted(() => {
+  //renvoyer vers le login si non connecté
+  const currentRoute = router.currentRoute.value
+  if (currentRoute.meta.requiresAuth && !isAuthenticated.value){
+    router.push('/login')
+  }
+})
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <nav>
+      <router-link to="/">Classement</router-link>
+      <span v-if="!isAuthenticated">
+        <router-link to="/login">Se connecter</router-link>
+        <router-link to="/register">S'inscrire</router-link>
+      </span>
+      <span v-else>
+        <router-link to="/team">Mon Équipe</router-link>
+        <router-link to="/games">Mes Matchs</router-link>
+        <router-link to="/games/create">Créer un Match</router-link>
+        <router-link to="/logout" @click.prevent="logout">Se déconnecter</router-link>
+      </span>
+    </nav>
   </header>
 
   <main>
-    <TheWelcome />
+    <router-view />
   </main>
 </template>
 
@@ -22,17 +47,8 @@ header {
   line-height: 1.5;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
 
   .logo {
     margin: 0 2rem 0 0;
