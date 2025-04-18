@@ -75,8 +75,8 @@
 </template>
 
 <script setup>
-import useTeam from './TeamView.js'
-import './TeamView.css'
+import useTeam from '../js/TeamView.js'
+import '../css/TeamView.css'
 
 const { 
   teamName, 

@@ -66,8 +66,8 @@
 </template>
 
 <script setup>
-import useRegister from './RegisterView.js'
-import './RegisterView.css'
+import useRegister from '../js/RegisterView.js'
+import '../css/RegisterView.css'
 
 const { 
   email, 

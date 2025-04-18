@@ -45,8 +45,8 @@
 </template>
 
 <script setup>
-import useLogin from './LoginView.js'
-import './LoginView.css'
+import useLogin from '../js/LoginView.js'
+import '../css/LoginView.css'
 
 const {email, password, errorMessage,isLoading, handleLogin } = useLogin()
 </script>
