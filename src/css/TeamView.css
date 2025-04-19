@@ -1,6 +1,5 @@
 .team-container{
-  max-width: 800px;
-  margin: 2rem auto;
+  width: 100%;
   background-color: white;
   padding: 2rem;
   border-radius: 8px;
