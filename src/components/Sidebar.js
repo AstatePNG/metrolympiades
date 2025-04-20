@@ -6,6 +6,7 @@ export default function useSidebar(){
   const router = useRouter()
   const isAuthenticated = ref(!!localStorage.getItem('token'))
   const isSidebarOpen = ref(false)
+  const teamName = ref('')
   
   //verifier à chaque changement
   onMounted(() =>{
@@ -22,12 +23,29 @@ export default function useSidebar(){
   
   function checkAuth() {
     isAuthenticated.value = !!localStorage.getItem('token')
+    
+    //recuperer le nom de l'equipe
+    if (isAuthenticated.value) {
+      const userDataString =localStorage.getItem('user')
+      if (userDataString) {
+        try {
+          const userData = JSON.parse(userDataString)
+          teamName.value = userData.team?.name || ''
+        } catch (error){
+          console.error('Erreur lors de la lecture des données utilisateur:', error)
+          teamName.value = ''
+        }
+      }
+    } else {
+      teamName.value = ''
+    }
   }
 
   const logout = () =>{
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     isAuthenticated.value = false
+    teamName.value = ''
     notificationStore.showNotification('Vous avez été déconnecté')
     router.push('/login')
   }
@@ -38,6 +56,7 @@ export default function useSidebar(){
 
   return{
     isAuthenticated,
+    teamName, // Exposition du nom de l'équipe
     logout,
     checkAuth,
     isSidebarOpen,

@@ -2,13 +2,18 @@
 import useSidebar from './Sidebar.js'
 import './Sidebar.css'
 
-const { isAuthenticated, logout, isSidebarOpen, toggleSidebar } = useSidebar()
+const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useSidebar()
 </script>
 
 <template>
   <div class="sidebar" :class="{ 'open': isSidebarOpen }">
     <div class="sidebar-header">
-      <h1>Métrolympiades</h1>
+      <div class="title-container">
+        <h1>Métrolympiades</h1>
+        <div v-if="isAuthenticated && teamName" class="team-name">
+          {{ teamName }}
+        </div>
+      </div>
       <button class="burger-menu" @click="toggleSidebar">☰</button>
     </div>
     <nav class="sidebar-nav">
