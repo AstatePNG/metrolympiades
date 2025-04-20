@@ -14,11 +14,11 @@ export default function useLogin(){
     try {
       isLoading.value = true
       errorMessage.value = ''
-      
+
       const response = await authService.login(email.value, password.value)
       //recuperer le token
       localStorage.setItem('token',response.data.token)
-      
+
       if (response.data.user){
         localStorage.setItem('user',JSON.stringify(response.data.user))
       }
@@ -26,7 +26,7 @@ export default function useLogin(){
       router.push('/')
     } catch (error) {
       console.error('Erreur de connexion:', error)
-      
+
       if(error.response&& error.response.data && error.response.data.message) {
         errorMessage.value = error.response.data.message
       }
