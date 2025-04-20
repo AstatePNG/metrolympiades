@@ -14,7 +14,6 @@ export default function useCreateMatch() {
   const isLoading = ref(false)
 
   const teamName = ref('Mon équipe')
-  const opponentTeamName = ref('')
   const teams = ref([])
   const activities = ref([])
 
@@ -124,6 +123,5 @@ export default function useCreateMatch() {
     teams,
     activities,
     teamName,
-    opponentTeamName
   }
 }

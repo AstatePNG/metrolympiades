@@ -48,7 +48,7 @@
             <input type="number" min="0" v-model.number="teamScore" />
           </div>
           <div class="score-input">
-            <span>{{ opponentTeamName }}</span>
+            <span> Adversaire </span>
             <input type="number" min="0" v-model.number="opponentScore" />
           </div>
         </div>
@@ -73,7 +73,6 @@ const {
   teams,
   activities,
   teamName,
-  opponentTeamName,
 } = useCreateMatch()
 
 const handleSave = () => {
