@@ -36,7 +36,7 @@ const router = createRouter({
       path: '/games/create',
       name: 'new-game',
       component: () => import('../views/NewGameView.vue'),
-      //meta: { requiresAuth: true }
+      meta: { requiresAuth: true }
     }
   ]
 })
@@ -51,21 +51,5 @@ router.beforeEach((to,from,next) =>{
     else next()
     }
 )
-
-
-/*
-router.beforeEach((to,from) =>{
-  const isAuthenticated = !!localStorage.getItem('token')
-
-  if(to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    return { name: 'login'}
-  }
-  //renvoyer vers la page d'acccueil si dejà connecté
-  if (to.matched.some(record => record.meta.requiresGuest) && isAuthenticated) {
-    console.log('Redirection vers ranking: utilisateur déjà connecté')
-    return { name: 'ranking'}
-  }
-})
-*/
 
 export default router

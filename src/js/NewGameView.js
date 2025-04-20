@@ -5,56 +5,73 @@ import { matchService, teamService, activityService } from '@/services/api'
 export default function useCreateMatch() {
   const router = useRouter()
 
-  const selectedTeamId = ref('')
+  const selectedOpponentId = ref('')
   const selectedActivityId = ref('')
   const startTime = ref('00:00')
   const teamScore = ref(0)
   const opponentScore = ref(0)
   const errorMessage = ref('')
+  const isLoading = ref(false)
 
   const teamName = ref('Mon équipe')
+  const opponentTeamName = ref('')
   const teams = ref([])
   const activities = ref([])
 
   const currentTeam = ref(null)
 
+  const filterTeams = (allTeams) => {
+    return allTeams.filter(team => team.id !== currentTeam.value?.id)
+  }
+
   const fetchTeams = async () => {
+    isLoading.value = true
     try {
       errorMessage.value = ''
       const response = await teamService.getAllTeams()
-      teams.value = response.data
+      teams.value = filterTeams(response.data)
     } catch (error) {
-      errorMessage.value = "Erreur lors de la récupération des équipes" + error
+      errorMessage.value = "Erreur lors de la récupération des équipes: " + error
+    } finally {
+      isLoading.value = false
     }
   }
 
   const fetchActivities = async () => {
+    isLoading.value = true
     try {
       errorMessage.value = ''
       const response = await activityService.getActivities()
       activities.value = response.data
     } catch (error) {
-      errorMessage.value = "Erreur lors du chargement des activités" + error
+      errorMessage.value = "Erreur lors du chargement des activités: " + error
+    } finally {
+      isLoading.value = false
     }
   }
 
   const fetchCurrentTeam = async () => {
+    isLoading.value = true
     try {
       const response = await teamService.getMyTeam()
-
       currentTeam.value = response.data
-      selectedTeamId.value = currentTeam.value.id
+      selectedOpponentId.value = ''
       teamName.value = currentTeam.value.name
+
+      fetchTeams()
     } catch (error) {
-      errorMessage.value = "Erreur lors de la récupération de l'équipe" + error
+      errorMessage.value = "Erreur lors de la récupération de l'équipe: " + error
+    } finally {
+      isLoading.value = false
     }
   }
 
   const handleSaveMatch = async () => {
+    isLoading.value = true
     try {
       errorMessage.value = ''
 
-      if (!selectedTeamId.value) {
+      if (!selectedOpponentId.value) {
         throw new Error("Veuillez sélectionner une équipe adverse.")
       }
       if (!selectedActivityId.value) {
@@ -67,7 +84,7 @@ export default function useCreateMatch() {
 
       const matchData = {
         team1Id: currentTeam.value.id,
-        team2Id: selectedTeamId.value,
+        team2Id: selectedOpponentId.value,
         activityId: selectedActivityId.value,
         startedAt: currentDate.toISOString(),
         team1Score: teamScore.value,
@@ -82,28 +99,31 @@ export default function useCreateMatch() {
         matchData.team2Score
       )
 
-      router.push('/matches')
+      router.push('/games')
     } catch (error) {
       errorMessage.value = "Erreur lors de la création du match : " + error
+    } finally {
+      isLoading.value = false
     }
   }
 
   onMounted(() => {
-    fetchTeams()
     fetchActivities()
     fetchCurrentTeam()
   })
 
   return {
-    selectedTeamId,
+    selectedOpponentId,
     selectedActivityId,
     startTime,
     teamScore,
     opponentScore,
     errorMessage,
+    isLoading,
     handleSaveMatch,
     teams,
     activities,
-    teamName
+    teamName,
+    opponentTeamName
   }
 }
