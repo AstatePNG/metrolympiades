@@ -14,7 +14,7 @@ const {
   teamName,
 } = useCreateMatch()
 
-const handleSave = () => {
+const handleSave = () =>{
   handleSaveMatch()
 }
 </script>
