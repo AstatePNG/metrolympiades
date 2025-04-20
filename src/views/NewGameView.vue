@@ -68,7 +68,7 @@ const handleSave = () => {
       </div>
 
       <div>
-        <button type="submit" :disabled="isLoading">Créer le match</button>
+        <button type="submit">Créer le match</button>
       </div>
     </form>
   </div>
