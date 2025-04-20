@@ -36,15 +36,27 @@ const router = createRouter({
       path: '/games/create',
       name: 'new-game',
       component: () => import('../views/NewGameView.vue'),
-      meta: { requiresAuth: true }
+      //meta: { requiresAuth: true }
     }
   ]
 })
 
 //protéger les routes si authentification necessaire
+router.beforeEach((to,from,next) =>{
+    const isAuthenticated = !!localStorage.getItem('token')
+
+    if(to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+        return { name: 'login'}
+    }
+    else next()
+    }
+)
+
+
+/*
 router.beforeEach((to,from) =>{
   const isAuthenticated = !!localStorage.getItem('token')
-  
+
   if(to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     return { name: 'login'}
   }
@@ -54,5 +66,6 @@ router.beforeEach((to,from) =>{
     return { name: 'ranking'}
   }
 })
+*/
 
 export default router

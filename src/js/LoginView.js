@@ -15,24 +15,24 @@ export default function useLogin() {
     try {
       isLoading.value = true
       errorMessage.value = ''
-      
+
       const response = await authService.login(email.value, password.value)
       //recuperer le token
       localStorage.setItem('token', response.data.token)
-      
+
       if (response.data){
         localStorage.setItem('user',JSON.stringify(response.data))
       }
-      
+
       notificationStore.showNotification('Connexion réussie !', 'success')
-      
+
       //notifier la sidebar pour afficher les elements accessibles
       window.dispatchEvent(new Event('storage'))
       //renvoyer vers le classement
       router.push('/')
     } catch (error) {
       console.error('Erreur de connexion:', error)
-      
+
       if(error.response && error.response.data && error.response.data.message) {
         errorMessage.value = error.response.data.message
         notificationStore.showNotification(error.response.data.message,'error')
