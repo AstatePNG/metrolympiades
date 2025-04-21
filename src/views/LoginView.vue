@@ -1,3 +1,10 @@
+<script setup>
+import useLogin from '../assets/scripts/login.js'
+import '../assets/css/LoginView.css'
+
+const { email, password, errorMessage, isLoading, handleLogin } = useLogin()
+</script>
+
 <template>
   <div class="login-container">
     <h1>Connexion</h1>
@@ -36,10 +43,3 @@
     </form>
   </div>
 </template>
-
-<script setup>
-import useLogin from '../js/LoginView.js'
-import '../css/LoginView.css'
-
-const { email, password, errorMessage, isLoading, handleLogin } = useLogin()
-</script>

@@ -1,3 +1,26 @@
+<script setup>
+import useCreateMatch from '../assets/scripts/newGame.js'
+import '../assets/css/NewGameView.css'
+
+const {
+  selectedOpponentId,
+  selectedActivityId,
+  startTime,
+  teamScore,
+  opponentScore,
+  errorMessage,
+  isLoading,
+  handleSaveMatch,
+  teams,
+  activities,
+  teamName,
+} = useCreateMatch()
+
+const handleSave = () => {
+  handleSaveMatch()
+}
+</script>
+
 <template>
   <div class="new-match-container">
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -56,26 +79,3 @@
     </form>
   </div>
 </template>
-
-<script setup>
-import useCreateMatch from '../js/NewGameView.js'
-import '../css/NewGameView.css'
-
-const {
-  selectedOpponentId,
-  selectedActivityId,
-  startTime,
-  teamScore,
-  opponentScore,
-  errorMessage,
-  isLoading,
-  handleSaveMatch,
-  teams,
-  activities,
-  teamName,
-} = useCreateMatch()
-
-const handleSave = () => {
-  handleSaveMatch()
-}
-</script>

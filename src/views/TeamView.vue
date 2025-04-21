@@ -1,3 +1,20 @@
+<script setup>
+import useTeam from '../assets/scripts/team.js'
+import '../assets/css/TeamView.css'
+
+const { 
+  teamName, 
+  members, 
+  newMember, 
+  isLoading, 
+  isSubmitting, 
+  errorMessage, 
+  updateTeam, 
+  addMember, 
+  removeMember 
+} = useTeam()
+</script>
+
 <template>
   <div class="team-container">
     <h1>Mon Équipe</h1>
@@ -73,20 +90,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import useTeam from '../js/TeamView.js'
-import '../css/TeamView.css'
-
-const { 
-  teamName, 
-  members, 
-  newMember, 
-  isLoading, 
-  isSubmitting, 
-  errorMessage, 
-  updateTeam, 
-  addMember, 
-  removeMember 
-} = useTeam()
-</script>

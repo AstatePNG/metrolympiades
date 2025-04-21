@@ -1,3 +1,18 @@
+<script setup>
+import useRegister from '../assets/scripts/register.js'
+import '../assets/css/RegisterView.css'
+
+const { 
+  email, 
+  username, 
+  password, 
+  teamName, 
+  errorMessage, 
+  isLoading, 
+  handleRegister 
+} = useRegister()
+</script>
+
 <template>
   <div class="register-container">
     <h1>Inscription</h1>
@@ -64,18 +79,3 @@
     </form>
   </div>
 </template>
-
-<script setup>
-import useRegister from '../js/RegisterView.js'
-import '../css/RegisterView.css'
-
-const { 
-  email, 
-  username, 
-  password, 
-  teamName, 
-  errorMessage, 
-  isLoading, 
-  handleRegister 
-} = useRegister()
-</script>

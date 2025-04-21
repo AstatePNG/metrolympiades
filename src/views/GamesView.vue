@@ -1,3 +1,10 @@
+<script setup>
+import '../assets/css/GamesView.css'
+import useGames from '../assets/scripts/games.js'
+
+const { matches, isLoading, errorMessage, formatTime, deleteMatch } = useGames()
+</script>
+
 <template>
   <div class="games-container">
     <div class="games-header">
@@ -44,11 +51,4 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import '../css/GamesView.css'
-import useGames from '../js/GamesView.js'
-
-const { matches, isLoading, errorMessage, formatTime, deleteMatch } = useGames()
-</script>
 

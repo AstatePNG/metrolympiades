@@ -1,30 +1,23 @@
 <script setup>
-defineProps(["team"]);
+
+import { ref } from 'vue'
+
+const props = defineProps(["team", "index"]);
+
+const headerId = ref(`heading${props.index + 1}`);
+const collapseId = ref(`collapse${props.index}`);
+const ariaCollapseId = ref(`#collapse${props.index}`);
+
+console.log(headerId.value);
 </script>
 
 <template>
-    <article class="card">
-        <!-- <header class="author">
-            <img :src="post.author.avatarUrl" alt="avatar" id="avatar" />
-            <RouterLink :to="{name: 'user', params: {username: post.author.username}}" class="author">{{ post.author.username }}</RouterLink>
+    <div class="card my-3">
+        <header class="card-header" :id="headerId">
+            <h2>{{ team.team }}</h2>
         </header>
-        <div class="content">
-            <p>{{ post.content }}</p>
-            <p>{{ post.createdAt.toLocaleString() }}</p>
+        <div class="card-body">
+            <p>Score : {{ team.points }}</p>
         </div>
-
-        <footer class="reactions">
-            <button class="btn-icon answer" @click="emit('answer', post.id)">
-                <ArrowTurnDownRightIcon />
-            </button>
-            <button class="btn-icon like" @click="emit('like', post.id)">
-                <LikeIcon v-if="!post.liked" />
-                <SolidLikeIcon v-else class="active" />
-            </button>
-            <button class="btn-icon delete" @click="emit('delete', post.id)">
-                <TrashIcon />
-            </button>
-        </footer> -->
-        <p>EKIP</p>
-    </article>
+    </div>
 </template>

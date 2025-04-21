@@ -1,20 +1,6 @@
-
 import { ref, computed } from "vue";
 import { rankingService } from "@/services/api";
-import { notificationStore } from '@/stores/notification' //TODO : INSTALL
-
-// const loading = ref(false);
-
-// const fetchLeaderboard = async () => {
-//     loading.value = true;
-//     const result = rankingService.getRanking();
-//     result.then((response) => response.json()).then((data) => {
-//         apiLeaderboard.value = data;
-//         loading.value = false;
-//     });
-// }
-
-// export default fetchLeaderboard
+import { notificationStore } from '@/stores/notification'
 
 export default function showLeaderboard(){
 
@@ -31,13 +17,9 @@ export default function showLeaderboard(){
             isLoading.value = true
             errorMessage.value = ''
         
-            const response = await rankingService.getRanking()
-            response.then((data) => console.log(data))
+            rankingService.getRanking().then((data) => leaderboard.value = data.data)
         
             notificationStore.showNotification('Voici le classement !', 'success')
-            
-            //on verra vers quoi on redirige peut etre un tableau de bord
-            router.push('/')
         } catch (error) {
             console.error('Erreur lors de la récupération du classement :', error)
             

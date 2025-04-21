@@ -1,6 +1,6 @@
 <script setup>
-import useSidebar from './Sidebar.js'
-import './Sidebar.css'
+import useSidebar from '../assets/scripts/Sidebar'
+import '../assets/css/Sidebar.css'
 
 const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useSidebar()
 </script>
