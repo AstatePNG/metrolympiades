@@ -6,7 +6,11 @@ const router= createRouter({
     {
       path: '/',
       name: 'ranking',
-      component: () => import('../views/RankingView.vue')
+      component: () => import('../views/LeaderboardView.vue')
+    },
+    {
+      path: '/home',
+      redirect: '/'
     },
     {
       path: '/login',

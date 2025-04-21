@@ -33,7 +33,7 @@ export const authService = {
   }
 }
 
-//gesttion des equipes
+//gestion des equipes
 export const teamService = {
   //info de SON equipe
   getMyTeam: () => {
