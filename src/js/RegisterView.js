@@ -33,7 +33,7 @@ export default function useRegister(){
       notificationStore.showNotification('Inscription réussie !', 'success')
       
       //on verra vers quoi on redirige peut etre un tableau de bord
-      router.push('/')
+      router.push('/team')
     } 
     catch (error) {
       console.error('Erreur d\'inscription:', error)
