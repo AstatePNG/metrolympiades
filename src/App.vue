@@ -2,8 +2,6 @@
 import Sidebar from './components/Sidebar.vue'
 import { notificationStore } from './stores/notification'
 import { useAppLogic } from './assets/scripts/main'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.bundle.js'
 
 const { isAuthenticated } = useAppLogic(notificationStore)
 </script>

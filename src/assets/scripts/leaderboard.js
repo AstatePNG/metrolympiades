@@ -18,8 +18,6 @@ export default function showLeaderboard(){
             errorMessage.value = ''
         
             rankingService.getRanking().then((data) => leaderboard.value = data.data)
-        
-            notificationStore.showNotification('Voici le classement !', 'success')
         } catch (error) {
             console.error('Erreur lors de la récupération du classement :', error)
             
