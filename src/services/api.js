@@ -1,8 +1,9 @@
 import axios from 'axios'
 
+
 //créer le service axios
 const api = axios.create({
-  baseURL:'http://localhost:3000', //il faudra peut etre changer l'url je n'ai pas tester 
+  baseURL:'http://localhost:3000', //il faudra peut etre changer l'url je n'ai pas tester
   headers:{
     'Content-Type': 'application/json'
   }
@@ -26,7 +27,7 @@ export const authService = {
   register: (email, username, password, teamName) => {
     return api.post('/auth/register', { email,username, password, teamName })
   },
-  
+
   //connexion
   login: (email, password) =>{
     return api.post('/auth/login', {email,password })
@@ -39,12 +40,12 @@ export const teamService = {
   getMyTeam: () => {
     return api.get('/teams/me')
   },
-  
+
   //modifier les infos de son equipe
   updateMyTeam: (name, members) => {
     return api.put('/teams/me', { name, members })
   },
-  
+
   //recuperer toutes les équipes
   getAllTeams: () => {
     return api.get('/teams')
@@ -63,12 +64,12 @@ export const matchService ={
       team2Score
     })
   },
-  
+
   //récuperer les matchs d'une équipe
   getMyMatches: () => {
     return api.get('/matches/me')
   },
-  
+
   //supprimer un match
   deleteMatch: (matchId) => {
     return api.delete(`/matches/${matchId}`)
@@ -81,7 +82,7 @@ export const activityService = {
   createActivity: (name) => {
     return api.post('/activities', { name})
   },
-  
+
   //récupérer toutes les activités
   getActivities: () => {
     return api.get('/activities')
