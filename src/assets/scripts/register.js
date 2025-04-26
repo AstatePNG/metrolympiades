@@ -27,13 +27,13 @@ export default function useRegister(){
       //stocker le token dans le localstorage
       localStorage.setItem('token', response.data.token)
       //les infos de l'utilisateur
-      if (response.data.user){
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-      }
+      localStorage.setItem('user', JSON.stringify(response.data))
+      window.dispatchEvent(new Event('storage'))
+      
       notificationStore.showNotification('Inscription réussie !', 'success')
       
       //on verra vers quoi on redirige peut etre un tableau de bord
-      router.push('/')
+      router.push('/team')
     } 
     catch (error) {
       console.error('Erreur d\'inscription:', error)
