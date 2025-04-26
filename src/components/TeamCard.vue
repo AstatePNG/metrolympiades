@@ -33,7 +33,10 @@ function detailsClicked(team) {
                     </p>
                 </div>
                 <div v-if="team.history">
-                    <p class="text-lg font-semibold mb-2">Historique des matchs :</p>
+                    <p class="text-lg font-semibold mb-2">Matchs les plus récents :</p>
+                    <div v-if="!team.history.length" class="text-sm text-gray-500">
+                        Cette équipe n'a pas encore joué de match.
+                    </div>
                     <div class="space-y-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                         <div class="border p-3 rounded">
                             <header class="card-header">
