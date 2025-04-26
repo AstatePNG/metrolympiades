@@ -21,13 +21,16 @@ function detailsClicked(team) {
                 <div class="text-lg font-bold">{{ team.team }}</div>
                 <div class="text-base">{{ team.points }} pts</div>
             </header>
-            <div class="grid grid-cols-2 gap-4 p-4" v-if="visible">
+            <div class="grid grid-cols-2 p-4" v-if="visible">
                 <div>
                     <p>
                         <span class="text-lg font-semibold">Composition de l'équipe:</span>
                         <span class="block mt-1">
                             <span class="mb-2">Capitaine : {{ team.leader }}</span><br>
                             <span>Membres :</span><br>
+                            <span v-if="!team.members" class="text-sm text-gray-500">
+                                Cette équipe n'a pas d'autres membres.
+                            </span>
                             <span>{{ team.members }}</span>
                         </span>
                     </p>
@@ -37,12 +40,12 @@ function detailsClicked(team) {
                     <div v-if="!team.history.length" class="text-sm text-gray-500">
                         Cette équipe n'a pas encore joué de match.
                     </div>
-                    <div class="space-y-3 p-2" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                    <div class="p-2" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                         <div class="border p-3 rounded">
-                            <header class="card-header">
+                            <header>
                                 <p class="font-semibold">{{ match.activity }} contre {{ match.opponent }} le {{ match.date }}:</p>
                             </header>
-                            <div class="card-body">
+                            <div>
                                 <p>Score : {{ match.teamScore }} à {{ match.opponentScore }}</p>
                                 <p>Résultat : {{ match.result }}</p>
                             </div>
