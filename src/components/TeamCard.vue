@@ -46,7 +46,7 @@ const cardClasses =computed(() => ({
                     <span v-if="!team.members">
                         Cette équipe n'a pas d'autres membres.
                     </span>
-                    <span>{{ team.members }}</span>
+                    <span>{{ Array.isArray(team.members) ? team.members.join(', ') : team.members }}</span>
                 </p>
             </div>
             <div class="team-history" v-if="team.history">
@@ -54,7 +54,7 @@ const cardClasses =computed(() => ({
                 <p v-if="!team.history">
                     Cette équipe n'a pas encore joué de match.
                 </p>
-                <div class="card my-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                <div class="my-3 match-card" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                     <header class="card-header">
                         <p>{{ match.activity }} contre {{ match.opponent }} le {{ match.date }} :</p>
                     </header>
