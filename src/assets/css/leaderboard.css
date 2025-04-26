@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+.leaderboard.card:hover {
+    cursor: pointer;
+}

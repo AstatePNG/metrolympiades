@@ -2,6 +2,7 @@
 
     import TeamCard from '../components/TeamCard.vue'
     import leaderboardScript from "../assets/scripts/leaderboard"
+    import '../assets/css/leaderboard.css'
 
     const {
         leaderboard,
@@ -23,8 +24,8 @@
 
 <template>
     <main>
-        <div class="container">
-            <h1 class="h1">Classement des équipes :</h1>
+        <div class="flex justify-center flex-col">
+            <h1 class="text-5xl pb-10">Classement des équipes :</h1>
 
             <div v-if="errorMessage" class="error-message">
                 {{ errorMessage}}

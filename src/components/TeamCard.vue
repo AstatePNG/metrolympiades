@@ -15,30 +15,35 @@ function detailsClicked(team) {
 </script>
 
 <template>
-    <div class="card my-3" @click="detailsClicked(team)">
-        <header class="card-header">
-            <p>
-                <span class="team-info-title">{{ team.team }}</span>
-                <span class="team-score">{{ team.points }} pts</span>
-            </p>
-        </header>
-        <div class="card-body" v-if="visible">
-            <div class="team-composition">
-                <p>
-                    <span class="team-info-title">Composition de l'équipe:</span>
-                    <span class="team-leader">Capitaine : {{ team.leader }}</span>
-                    <span class="team-members">Membres : {{ team.members }}</span>
-                </p>
-            </div>
-            <div class="team-history" v-if="team.history">
-                <p><span class="team-info-title">Historique des matchs :</span></p>
-                <div class="card my-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
-                    <header class="card-header">
-                        <p>{{ match.activity }} contre {{ match.opponent }} le {{ match.date }} :</p>
-                    </header>
-                    <div class="card-body">
-                        <p>Score : {{ match.teamScore }} à {{ match.opponentScore }}</p>
-                        <p>Résultat : {{ match.result }}</p>
+    <div class="rounded overflow-hidden shadow-lg bg-teal-500/5 text-white" @click="detailsClicked(team)">
+        <div class="pb-4">
+            <header class="flex justify-between items-center bg-teal-500/10 p-4 rounded">
+                <div class="text-lg font-bold">{{ team.team }}</div>
+                <div class="text-base">{{ team.points }} pts</div>
+            </header>
+            <div class="grid grid-cols-2 gap-4" v-if="visible">
+                <div>
+                    <p>
+                        <span class="text-lg font-semibold">Composition de l'équipe:</span>
+                        <span class="block mt-1">
+                            <span class="mb-2">Capitaine : {{ team.leader }}</span><br>
+                            <span>Membres :</span><br>
+                            <span>{{ team.members }}</span>
+                        </span>
+                    </p>
+                </div>
+                <div v-if="team.history">
+                    <p class="text-lg font-semibold mb-2">Historique des matchs :</p>
+                    <div class="space-y-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                        <div class="border p-3 rounded">
+                            <header class="card-header">
+                                <p class="font-semibold">{{ match.activity }} contre {{ match.opponent }} le {{ match.date }}:</p>
+                            </header>
+                            <div class="card-body">
+                                <p>Score : {{ match.teamScore }} à {{ match.opponentScore }}</p>
+                                <p>Résultat : {{ match.result }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
