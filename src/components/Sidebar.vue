@@ -3,6 +3,12 @@ import useSidebar from '../assets/scripts/Sidebar'
 import '../assets/css/Sidebar.css'
 
 const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useSidebar()
+
+const closeSidebar = () => {
+  if (isSidebarOpen) {
+    toggleSidebar();  
+  }
+}
 </script>
 
 <template>
@@ -14,14 +20,12 @@ const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useS
           {{ teamName }}
         </div>
       </div>
-      <button class="burger-menu" @click="toggleSidebar">☰</button>
     </div>
     <nav class="sidebar-nav">
-        <!--Accessible par tout le monde -->
       <router-link to="/" class="nav-item" @click="toggleSidebar">
         <span>Classement</span>
       </router-link>
-      <!--Si connecté -->
+
       <template v-if="isAuthenticated">
         <router-link to="/team" class="nav-item" @click="toggleSidebar">
           <span>Mon Équipe</span>
@@ -36,7 +40,7 @@ const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useS
           <span>Se déconnecter</span>
         </a>
       </template>
-      <!--non connecté seulement -->
+
       <template v-else>
         <router-link to="/login" class="nav-item" @click="toggleSidebar">
           <span>Se connecter</span>
@@ -45,6 +49,15 @@ const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useS
           <span>S'inscrire</span>
         </router-link>
       </template>
+
+      <div class="nav-item close-sidebar" @click="closeSidebar">
+        <span>Fermer Sidebar</span>
+      </div>
     </nav>
   </div>
+
+  <button class="toggle-sidebar-button" @click="toggleSidebar">
+    <span v-if="isSidebarOpen">✖</span>
+    <span v-else>☰</span>
+  </button>
 </template>

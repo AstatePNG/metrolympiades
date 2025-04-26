@@ -4,8 +4,6 @@
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 2rem auto;
 }
 
 .new-match-header {
@@ -18,7 +16,6 @@
 .new-match-header h1 {
   margin: 0;
   color: #1a1a2e;
-  font-size: 1.5rem;
 }
 
 .new-match-form {

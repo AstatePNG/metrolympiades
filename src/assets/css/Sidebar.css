@@ -5,12 +5,16 @@
   color: #fff;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -250px; 
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   z-index: 100;
-  transition: all 0.3s ease-in-out;
+  transition: left 0.3s ease-in-out; 
+}
+
+.sidebar.open {
+  left: 0; 
 }
 
 .sidebar-header {
@@ -32,14 +36,14 @@
   color: #4ecca3;
 }
 
-.team-name{
+.team-name {
   font-size: 0.85rem;
   color: #ccc;
   margin-top: 4px;
 }
 
 .burger-menu {
-  display: none;
+  display: block; 
   cursor: pointer;
   font-size: 24px;
   background: none;
@@ -71,13 +75,13 @@
   transition: all 0.3s ease;
 }
 
-.nav-item:hover{
+.nav-item:hover {
   background-color: #2d2d42;
   color: #4ecca3;
 }
 
 .router-link-active {
-  background-color:#2d2d42;
+  background-color: #2d2d42;
   border-left: 4px solid #4ecca3;
   color: #4ecca3;
 }
@@ -94,34 +98,87 @@
     max-height: 60px;
     overflow: hidden;
     padding: 0;
+    left: -100%; 
   }
-  
+
   .sidebar.open {
     height: auto;
     max-height: 100vh;
+    left: 0; 
   }
-  
+
   .sidebar-header {
     padding: 10px 20px;
     margin: 0;
   }
-  
+
   .burger-menu {
     display: block;
   }
-  
+
   .sidebar-nav {
     flex-direction: column;
     padding: 0;
   }
-  
+
   .nav-item {
     padding: 15px 20px;
     margin: 0;
     border-top: 1px solid #2d2d42;
   }
-  
+
   .logout {
     margin-top: 0;
   }
 }
+
+
+.toggle-sidebar-button {
+  position: fixed;
+  top: 10px; 
+  left: 10px;
+  padding: 0.5rem;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 101; 
+  transition: all 0.3s ease;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.toggle-sidebar-button span {
+  font-size: 30px; 
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+
+.sidebar.open + .toggle-sidebar-button {
+  display: none;
+}
+
+
+.close-sidebar {
+  padding: 12px 20px;
+  color: #ddd;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.close-sidebar:hover {
+  background-color: #2d2d42;
+  color: #4ecca3;
+}
+
+
