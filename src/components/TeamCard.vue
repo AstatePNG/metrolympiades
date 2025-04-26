@@ -3,20 +3,26 @@
 import { ref } from 'vue'
 
 const props = defineProps(["team"]);
-
 const emit = defineEmits(["details"]);
+
+const visible = ref(false);
+
+function detailsClicked(team) {
+    emit('details', team.id);
+    visible.value = !visible.value;
+}
 
 </script>
 
 <template>
-    <div class="card my-3" @click="emit('details', team.id)">
+    <div class="card my-3" @click="detailsClicked(team)">
         <header class="card-header">
             <p>
                 <span class="team-info-title">{{ team.team }}</span>
                 <span class="team-score">{{ team.points }} pts</span>
             </p>
         </header>
-        <div class="card-body">
+        <div class="card-body" v-if="visible">
             <div class="team-composition">
                 <p>
                     <span class="team-info-title">Composition de l'équipe:</span>
@@ -24,13 +30,17 @@ const emit = defineEmits(["details"]);
                     <span class="team-members">Membres : {{ team.members }}</span>
                 </p>
             </div>
-            <div class="team-history">
+            <div class="team-history" v-if="team.history">
                 <p><span class="team-info-title">Historique des matchs :</span></p>
-                <ul>
-                    <li v-for="(match, index) in team.history" :key="index">
-                        {{ match }}
-                    </li>
-                </ul>
+                <div class="card my-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                    <header class="card-header">
+                        <p>{{ match.activity }} contre {{ match.opponent }} le {{ match.date }} :</p>
+                    </header>
+                    <div class="card-body">
+                        <p>Score : {{ match.teamScore }} à {{ match.opponentScore }}</p>
+                        <p>Résultat : {{ match.result }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
