@@ -3,12 +3,6 @@ import useSidebar from '../assets/scripts/Sidebar'
 import '../assets/css/Sidebar.css'
 
 const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useSidebar()
-
-const closeSidebar = () => {
-  if (isSidebarOpen) {
-    toggleSidebar();  
-  }
-}
 </script>
 
 <template>
@@ -20,20 +14,24 @@ const closeSidebar = () => {
           {{ teamName }}
         </div>
       </div>
+      <button class="toggle-arrow" @click="toggleSidebar">
+        <span v-if="isSidebarOpen">&#10094;</span>
+        <span class="toggle-sidebar-button" v-else></span>
+      </button>
     </div>
     <nav class="sidebar-nav">
-      <router-link to="/" class="nav-item" @click="toggleSidebar">
+      <router-link to="/" class="nav-item">
         <span>Classement</span>
       </router-link>
 
       <template v-if="isAuthenticated">
-        <router-link to="/team" class="nav-item" @click="toggleSidebar">
+        <router-link to="/team" class="nav-item">
           <span>Mon Équipe</span>
         </router-link>
-        <router-link to="/games" class="nav-item" @click="toggleSidebar">
+        <router-link to="/games" class="nav-item">
           <span>Mes Matchs</span>
         </router-link>
-        <router-link to="/games/create" class="nav-item" @click="toggleSidebar">
+        <router-link to="/games/create" class="nav-item">
           <span>Créer un Match</span>
         </router-link>
         <a href="#" class="nav-item logout" @click.prevent="logout">
@@ -42,22 +40,17 @@ const closeSidebar = () => {
       </template>
 
       <template v-else>
-        <router-link to="/login" class="nav-item" @click="toggleSidebar">
+        <router-link to="/login" class="nav-item" >
           <span>Se connecter</span>
         </router-link>
-        <router-link to="/register" class="nav-item" @click="toggleSidebar">
+        <router-link to="/register" class="nav-item" >
           <span>S'inscrire</span>
         </router-link>
       </template>
-
-      <div class="nav-item close-sidebar" @click="closeSidebar">
-        <span>Fermer Sidebar</span>
-      </div>
     </nav>
   </div>
 
-  <button class="toggle-sidebar-button" @click="toggleSidebar">
-    <span v-if="isSidebarOpen">✖</span>
-    <span v-else>☰</span>
+  <button class="toggle-sidebar-button" @click="toggleSidebar" :class="{ 'hidden': isSidebarOpen }">
+    <span>&#10095;</span>
   </button>
 </template>

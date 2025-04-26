@@ -5,7 +5,7 @@ import { notificationStore } from '@/stores/notification'
 export default function useSidebar(){
   const router = useRouter()
   const isAuthenticated = ref(!!localStorage.getItem('token'))
-  const isSidebarOpen = ref(false)
+  const isSidebarOpen = ref(true)
   const teamName = ref('')
   
   //verifier à chaque changement
