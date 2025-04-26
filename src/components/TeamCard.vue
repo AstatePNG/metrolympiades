@@ -26,12 +26,19 @@ function detailsClicked(team) {
             <div class="team-composition">
                 <p>
                     <span class="team-info-title">Composition de l'équipe:</span>
-                    <span class="team-leader">Capitaine : {{ team.leader }}</span>
-                    <span class="team-members">Membres : {{ team.members }}</span>
+                    <span class="team-leader">Capitaine : {{ team.leader }}</span><br>
+                    <span class="team-members">Membres : </span><br>
+                    <span v-if="!team.members">
+                        Cette équipe n'a pas d'autres membres.
+                    </span>
+                    <span>{{ team.members }}</span>
                 </p>
             </div>
             <div class="team-history" v-if="team.history">
-                <p><span class="team-info-title">Historique des matchs :</span></p>
+                <p><span class="team-info-title">Matchs les plus récents :</span></p>
+                <p v-if="!team.history">
+                    Cette équipe n'a pas encore joué de match.
+                </p>
                 <div class="card my-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                     <header class="card-header">
                         <p>{{ match.activity }} contre {{ match.opponent }} le {{ match.date }} :</p>

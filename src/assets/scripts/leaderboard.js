@@ -29,7 +29,7 @@ export default function leaderboardScript(){
                     data.data.forEach((team) => {
                         const teamName = team.team
                         // recherche de l'équipe par son nom, l'id n'étant pas accessible depuis cette requête
-                        const teamDetail = teamList.value.find((t) => t.name === teamName)
+                        let teamDetail = teamList.value.find((t) => t.name === teamName)
                         // si plusieurs équipes ont le même nom, on prend la première
                         if(teamDetail.length > 1) {
                             teamDetail = teamDetail[0]
