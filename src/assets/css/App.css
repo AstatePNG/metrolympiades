@@ -86,7 +86,6 @@
 }
 
 .content-container{
-  margin-left: 250px;
   flex-grow: 1;
   padding: 2rem;
   display: flex;

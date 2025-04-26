@@ -7,6 +7,18 @@
   font-weight: normal;
 }
 
+h1{
+  color: #fff;
+}
+
+p{
+  color: #fff;
+}
+
+header{
+  color: #fff;
+}
+
 a,
 .green {
   text-decoration: none;

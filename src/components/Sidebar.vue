@@ -14,37 +14,43 @@ const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useS
           {{ teamName }}
         </div>
       </div>
-      <button class="burger-menu" @click="toggleSidebar">☰</button>
+      <button class="toggle-arrow" @click="toggleSidebar">
+        <span v-if="isSidebarOpen">&#10094;</span>
+        <span class="toggle-sidebar-button" v-else></span>
+      </button>
     </div>
     <nav class="sidebar-nav">
-        <!--Accessible par tout le monde -->
-      <router-link to="/" class="nav-item" @click="toggleSidebar">
+      <router-link to="/" class="nav-item">
         <span>Classement</span>
       </router-link>
-      <!--Si connecté -->
+
       <template v-if="isAuthenticated">
-        <router-link to="/team" class="nav-item" @click="toggleSidebar">
+        <router-link to="/team" class="nav-item">
           <span>Mon Équipe</span>
         </router-link>
-        <router-link to="/games" class="nav-item" @click="toggleSidebar">
+        <router-link to="/games" class="nav-item">
           <span>Mes Matchs</span>
         </router-link>
-        <router-link to="/games/create" class="nav-item" @click="toggleSidebar">
+        <router-link to="/games/create" class="nav-item">
           <span>Créer un Match</span>
         </router-link>
         <a href="#" class="nav-item logout" @click.prevent="logout">
           <span>Se déconnecter</span>
         </a>
       </template>
-      <!--non connecté seulement -->
+
       <template v-else>
-        <router-link to="/login" class="nav-item" @click="toggleSidebar">
+        <router-link to="/login" class="nav-item" >
           <span>Se connecter</span>
         </router-link>
-        <router-link to="/register" class="nav-item" @click="toggleSidebar">
+        <router-link to="/register" class="nav-item" >
           <span>S'inscrire</span>
         </router-link>
       </template>
     </nav>
   </div>
+
+  <button class="toggle-sidebar-button" @click="toggleSidebar" :class="{ 'hidden': isSidebarOpen }">
+    <span>&#10095;</span>
+  </button>
 </template>
