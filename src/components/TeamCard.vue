@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 
 // position dans classement
 const props = defineProps({
@@ -16,12 +16,13 @@ function detailsClicked(team) {
 }
 
 // classe en fonction du classement
-const cardClasses= {
+const cardClasses =computed(() => ({
   'podium': props.position <= 3,
   'first-place': props.position === 1,
   'second-place': props.position === 2,
-  'third-place': props.position === 3
-}
+  'third-place': props.position === 3,
+  'details-open': visible.value
+}));
 </script>
 
 <template>
@@ -32,6 +33,10 @@ const cardClasses= {
                 <span class="team-score">{{ team.points }} pts</span>
             </p>
         </header>
+        <div v-if="!visible" class="click-indicator">
+            <span>Plus de détails</span>
+            <i>→</i>
+        </div>
         <div class="card-body" v-if="visible">
             <div class="team-composition">
                 <p>

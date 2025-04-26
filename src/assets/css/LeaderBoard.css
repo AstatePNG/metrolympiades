@@ -22,10 +22,14 @@
 .card {
   border: 1px solid #eee;
   border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 5px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
   cursor: pointer;
   animation: slideIn 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -36,10 +40,45 @@
   background-color: #f9f9f9;
   padding: 1rem;
   border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.card-body {
-  padding: 1.5rem;
+/*si les details ne sont pas affichés et que l'element 
+est survolé alors décalé de 40px 
+vers la gauche pour afficher un message "Plus de détails"*/
+.card:not(.details-open):hover .card-header{
+  transform: translateX(-40px);
+}
+
+.click-indicator {
+  position: absolute;
+  right: -100px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 0.8rem;
+  color: #4ecca3;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+/* ne pas afficher par défaut */
+.card .click-indicator {
+  transform: translateX(100px);
+}
+
+/* au survol l'afficher */
+.card:not(.details-open):hover .click-indicator {
+  transform: translateX(-100px);
+}
+
+.click-indicator i {
+  margin-left: 5px;
 }
 
 .team-info-title {
@@ -95,13 +134,10 @@
   box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
 }
 
-
 .card.third-place .card-header {
   background-color: rgba(205, 127, 50, 0.1);
   position: relative;
 }
-
-
 
 @keyframes slideIn{
   0% {
