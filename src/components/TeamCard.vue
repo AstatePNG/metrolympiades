@@ -16,7 +16,7 @@ function detailsClicked(team) {
 
 <template>
     <div class="pb-4">
-        <div class="rounded overflow-hidden shadow-lg bg-teal-500/5 text-white" @click="detailsClicked(team)">
+        <div class="card rounded overflow-hidden shadow-lg bg-teal-500/5 text-white" @click="detailsClicked(team)">
             <header class="flex justify-between items-center bg-teal-500/10 p-4 rounded">
                 <div class="text-lg font-bold">{{ team.team }}</div>
                 <div class="text-base">{{ team.points }} pts</div>
