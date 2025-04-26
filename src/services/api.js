@@ -46,7 +46,7 @@ export const teamService = {
     return api.put('/teams/me', { name, members })
   },
 
-  //recuperer toutes les équipes
+  //recupérer toutes les équipes
   getAllTeams: () => {
     return api.get('/teams')
   }
@@ -76,9 +76,9 @@ export const matchService ={
   }
 }
 
-//gestions des activités
+//gestion des activités
 export const activityService = {
-  //ajouté une activité
+  //ajouter une activité
   createActivity: (name) => {
     return api.post('/activities', { name})
   },
@@ -89,10 +89,13 @@ export const activityService = {
   }
 }
 
-//recupérer le classement
+//gestion du classement
 export const rankingService = {
   getRanking: () => {
     return api.get('/ranking')
+  },
+  getHistoryOfTeam: (teamId) => {
+    return api.get(`/matches?teamId=${teamId}`)
   }
 }
 export default api

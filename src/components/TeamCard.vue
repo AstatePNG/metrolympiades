@@ -2,22 +2,36 @@
 
 import { ref } from 'vue'
 
-const props = defineProps(["team", "index"]);
+const props = defineProps(["team"]);
 
-const headerId = ref(`heading${props.index + 1}`);
-const collapseId = ref(`collapse${props.index}`);
-const ariaCollapseId = ref(`#collapse${props.index}`);
+const emit = defineEmits(["details"]);
 
-console.log(headerId.value);
 </script>
 
 <template>
-    <div class="card my-3">
-        <header class="card-header" :id="headerId">
-            <h2>{{ team.team }}</h2>
+    <div class="card my-3" @click="emit('details', team.id)">
+        <header class="card-header">
+            <p>
+                <span class="team-info-title">{{ team.team }}</span>
+                <span class="team-score">{{ team.points }} pts</span>
+            </p>
         </header>
         <div class="card-body">
-            <p>Score : {{ team.points }}</p>
+            <div class="team-composition">
+                <p>
+                    <span class="team-info-title">Composition de l'équipe:</span>
+                    <span class="team-leader">Capitaine : {{ team.leader }}</span>
+                    <span class="team-members">Membres : {{ team.members }}</span>
+                </p>
+            </div>
+            <div class="team-history">
+                <p><span class="team-info-title">Historique des matchs :</span></p>
+                <ul>
+                    <li v-for="(match, index) in team.history" :key="index">
+                        {{ match }}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
