@@ -15,13 +15,13 @@ function detailsClicked(team) {
 </script>
 
 <template>
-    <div class="rounded overflow-hidden shadow-lg bg-teal-500/5 text-white" @click="detailsClicked(team)">
-        <div class="pb-4">
+    <div class="pb-4">
+        <div class="rounded overflow-hidden shadow-lg bg-teal-500/5 text-white" @click="detailsClicked(team)">
             <header class="flex justify-between items-center bg-teal-500/10 p-4 rounded">
                 <div class="text-lg font-bold">{{ team.team }}</div>
                 <div class="text-base">{{ team.points }} pts</div>
             </header>
-            <div class="grid grid-cols-2 gap-4" v-if="visible">
+            <div class="grid grid-cols-2 gap-4 p-4" v-if="visible">
                 <div>
                     <p>
                         <span class="text-lg font-semibold">Composition de l'équipe:</span>
@@ -37,7 +37,7 @@ function detailsClicked(team) {
                     <div v-if="!team.history.length" class="text-sm text-gray-500">
                         Cette équipe n'a pas encore joué de match.
                     </div>
-                    <div class="space-y-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                    <div class="space-y-3 p-2" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                         <div class="border p-3 rounded">
                             <header class="card-header">
                                 <p class="font-semibold">{{ match.activity }} contre {{ match.opponent }} le {{ match.date }}:</p>
