@@ -1,8 +1,11 @@
 <script setup>
-
 import { ref } from 'vue'
 
-const props = defineProps(["team"]);
+// position dans classement
+const props = defineProps({
+  team: Object,
+  position: Number 
+});
 const emit = defineEmits(["details"]);
 
 const visible = ref(false);
@@ -12,10 +15,17 @@ function detailsClicked(team) {
     visible.value = !visible.value;
 }
 
+// classe en fonction du classement
+const cardClasses= {
+  'podium': props.position <= 3,
+  'first-place': props.position === 1,
+  'second-place': props.position === 2,
+  'third-place': props.position === 3
+}
 </script>
 
 <template>
-    <div class="card my-3" @click="detailsClicked(team)">
+    <div class="card my-3" :class="cardClasses" @click="detailsClicked(team)">
         <header class="card-header">
             <p>
                 <span class="team-info-title">{{ team.team }}</span>
