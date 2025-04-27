@@ -57,13 +57,6 @@
   color: #000000;
 }
 
-/*si les details ne sont pas affichés et que l'element 
-est survolé alors décalé de 40px 
-vers la gauche pour afficher un message "Plus de détails"*/
-.card:not(.details-open):hover .card-header{
-  transform: translateX(-40px);
-}
-
 .click-indicator {
   position: absolute;
   right: -100px;
