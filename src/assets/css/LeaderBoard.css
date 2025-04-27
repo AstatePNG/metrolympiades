@@ -30,6 +30,7 @@
   animation: slideIn 0.5s ease-in-out;
   position: relative;
   overflow: hidden;
+  color: #000000; 
 }
 
 .card:hover {
@@ -47,6 +48,13 @@
   display: flex;
   align-items: center;
   transition: transform 0.3s ease;
+  color: #000000; 
+}
+
+.card-header p {
+  width: 100%;
+  margin: 0;
+  color: #000000;
 }
 
 /*si les details ne sont pas affichés et que l'element 
@@ -97,8 +105,12 @@ vers la gauche pour afficher un message "Plus de détails"*/
   float: right;
 }
 
+.card.team-members{
+  color: #000000;
+}
+
 .team-leader, .team-members {
-  color: #666;
+  color: #000000;
   margin: 5px 0;
   display: block;
 }
@@ -141,6 +153,96 @@ vers la gauche pour afficher un message "Plus de détails"*/
 .card.third-place .card-header {
   background-color: rgba(205, 127, 50, 0.1);
   position: relative;
+}
+
+.match-card {
+  background-color: #f9f9f9;
+  color: #000000;
+  transition: transform 0.2s ease;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+
+.match-card .card-header {
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  transform: translateX(0px);
+}
+
+.match-card .card-body {
+  padding: 12px 15px;
+}
+
+.match-score{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.score-label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.score-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #f0f0f0;
+  padding: 0 10px;
+  border-radius: 4px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.match-result {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.result-victory {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.result-defeat {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+}
+
+.result-draw {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #ef6c00;
+}
+
+.score-separator {
+  font-weight: 600;
+  margin: 0 10px;
+  color: #666;
+}
+
+.activity-icon {
+  margin-right: 8px;
+  opacity: 0.8;
+}
+
+.match-date {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+  font-style: italic;
 }
 
 @keyframes slideIn{

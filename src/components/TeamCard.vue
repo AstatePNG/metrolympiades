@@ -21,8 +21,31 @@ const cardClasses =computed(() => ({
   'first-place': props.position === 1,
   'second-place': props.position === 2,
   'third-place': props.position === 3,
-  'details-open': visible.value
+  'details-open': visible.value,
+  'team-card': true
 }));
+
+// obtenir l'icône d'activité
+function getActivityIcon(activity) {
+  const icons = {
+    'Football': '⚽',
+    'Basketball': '🏀',
+    'Volleyball': '🏐',
+    'Tennis': '🎾',
+    'Badminton': '🏸',
+    'Natation': '🏊',
+    'Athlétisme': '🏃',
+    'Cyclisme': '🚴',
+  };
+  return icons[activity] || '🏆'; //si ce n'est pas un sport connu
+}
+
+// cllase en fonction de victoire ou défaite 
+function getResultClass(result) {
+  if (result === 'Victoire') return 'result-victory';
+  if (result === 'Défaite') return 'result-defeat';
+  return 'result-draw';
+}
 </script>
 
 <template>
@@ -46,21 +69,35 @@ const cardClasses =computed(() => ({
                     <span v-if="!team.members">
                         Cette équipe n'a pas d'autres membres.
                     </span>
-                    <span>{{ Array.isArray(team.members) ? team.members.join(', ') : team.members }}</span>
+                    <span>{{ team.members }}</span>
                 </p>
             </div>
             <div class="team-history" v-if="team.history">
                 <p><span class="team-info-title">Matchs les plus récents :</span></p>
-                <p v-if="!team.history">
+                <p v-if="!team.history || team.history.length === 0">
                     Cette équipe n'a pas encore joué de match.
                 </p>
-                <div class="my-3 match-card" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
+                <div class="match-card my-3" v-for="(match, index) in team.history.slice(0, 5)" :key="index">
                     <header class="card-header">
-                        <p>{{ match.activity }} contre {{ match.opponent }} le {{ match.date }} :</p>
+                        <span class="activity-icon">{{ getActivityIcon(match.activity) }}</span>
+                        {{ match.activity }} contre {{ ' ' + match.opponent + ' ' }}
+                        <div class="match-date">{{ ' ' + match.date }}</div>
                     </header>
                     <div class="card-body">
-                        <p>Score : {{ match.teamScore }} à {{ match.opponentScore }}</p>
-                        <p>Résultat : {{ match.result }}</p>
+                        <div class="match-score">
+                            <div>
+                                <span class="score-label">{{ team.team }}</span>
+                                <span class="score-value">{{ match.teamScore}}</span>
+                            </div>
+                            <span class="score-separator">-</span>
+                            <div>
+                                <span class="score-value">{{ match.opponentScore }}</span>
+                                <span class="score-label">{{ match.opponent }}</span>
+                            </div>
+                        </div>
+                        <div class="match-result" :class="getResultClass(match.result)">
+                            {{ match.result }}
+                        </div>
                     </div>
                 </div>
             </div>
