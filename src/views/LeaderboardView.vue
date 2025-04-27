@@ -1,48 +1,46 @@
 <script setup>
+import TeamCard from '../components/TeamCard.vue'
+import leaderboardScript from '../assets/scripts/leaderboard'
+import '../assets/css/LeaderBoard.css'
 
-    import TeamCard from '../components/TeamCard.vue'
-    import leaderboardScript from "../assets/scripts/leaderboard"
-    import '../assets/css/leaderboard.css'
+const {
+  leaderboard,
+  sortedLeaderboard,
+  errorMessage,
+  isLoading,
+  fetchLeaderboard,
+  fetchTeamHistory,
+} = leaderboardScript()
 
-    const {
-        leaderboard,
-        sortedLeaderboard,
-        errorMessage,
-        isLoading,
-        fetchLeaderboard,
-        fetchTeamHistory,
-    } = leaderboardScript()
+fetchLeaderboard()
 
-    fetchLeaderboard()
-
-    function getTeamHistory(teamId) {
-        fetchTeamHistory(teamId)
-        
-    }
-
+function getTeamHistory(teamId) {
+  fetchTeamHistory(teamId)
+}
 </script>
 
 <template>
-    <main>
-        <div class="flex justify-center flex-col">
-            <h1 class="text-5xl pb-10">Classement des équipes :</h1>
+  <div class="container">
+    <h1>Classement des équipes</h1>
 
-            <div v-if="errorMessage" class="error-message">
-                {{ errorMessage}}
-            </div>
+    <div v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
 
-            <p v-if="isLoading">Chargement...</p>
+    <div v-if="isLoading" class="loading">Chargement du classement...</div>
 
-            <p v-else-if="!leaderboard.length">Pas de classement pour le moment.</p>
+    <div v-else-if="!leaderboard.length" class="empty">
+      Pas de classement disponible pour le moment.
+    </div>
 
-            <div v-else id="leaderboard">
-                <TeamCard
-                    v-for="(team) in sortedLeaderboard"
-                    :key="team.id"
-                    :team="team"
-                    @details="getTeamHistory(team.id)"
-                />
-            </div>
-        </div>
-    </main>
+    <div v-else id="leaderboard">
+      <TeamCard
+        v-for="(team, index) in sortedLeaderboard"
+        :key="team.id"
+        :team="team"
+        :position="index + 1"
+        @details="getTeamHistory(team.id)"
+      />
+    </div>
+  </div>
 </template>

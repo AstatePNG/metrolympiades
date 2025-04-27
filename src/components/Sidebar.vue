@@ -51,6 +51,6 @@ const { isAuthenticated, teamName, logout, isSidebarOpen, toggleSidebar } = useS
   </div>
 
   <button class="toggle-sidebar-button" @click="toggleSidebar" :class="{ 'hidden': isSidebarOpen }">
-    <span>&#10095;</span>
+    <span style="color: #4ecca3;">&#10095;</span>
   </button>
 </template>
