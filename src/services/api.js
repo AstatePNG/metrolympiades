@@ -49,6 +49,10 @@ export const teamService = {
   //recupérer toutes les équipes
   getAllTeams: () => {
     return api.get('/teams')
+  },
+
+  getTeamByID: (teamId) => {
+    return api.get(`/teams/${teamId}`)
   }
 }
 

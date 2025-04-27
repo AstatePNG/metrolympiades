@@ -9,34 +9,40 @@ export default function useTeam() {
   const isLoading = ref(true)
   const isSubmitting = ref(false)
   const errorMessage = ref('')
+  const leader = ref('')
 
   //recuperer les données de l'équipe
   onMounted(async () =>{
     try {
       isLoading.value = true
       errorMessage.value= ''
-      
+
       const response = await teamService.getMyTeam()
-      
+      const reponseMyTeam = await teamService.getTeamByID(response.data.id)
+
       if (response.data){
         teamName.value = response.data.name || ''
+
         //copier le tableau pour ne pas utiliser de référence
-        members.value = Array.isArray(response.data.members) 
-          ?[...response.data.members] 
+        members.value = Array.isArray(response.data.members)
+          ?[...response.data.members]
           : []
+      }
+      if (reponseMyTeam.data){
+        leader.value = reponseMyTeam.data.leader.username || ''
       }
     } catch (error) {
       console.error('Erreur lors du chargement de l\'équipe:', error)
-      
+
       if (error.response?.data?.message) {
         errorMessage.value = error.response.data.message
-      } 
+      }
       else{
         errorMessage.value= 'Impossible de charger les informations de l\'équipe'
       }
-      
+
       notificationStore.showNotification(
-        errorMessage.value, 
+        errorMessage.value,
         'error'
       )
     } finally {
@@ -64,29 +70,29 @@ export default function useTeam() {
     try {
       isSubmitting.value = true
       errorMessage.value = ''
-      
+
       await teamService.updateMyTeam(teamName.value, members.value)
-      
+
       notificationStore.showNotification(
-        'Équipe mise à jour avec succès', 
+        'Équipe mise à jour avec succès',
         'success'
       )
-    } 
+    }
     catch (error){
       console.error('Erreur lors de la mise à jour de l\'équipe:', error)
-      
+
       if (error.response?.data?.message){
         errorMessage.value = error.response.data.message
-      } 
+      }
       else {
         errorMessage.value = 'Impossible de mettre à jour les informations de l\'équipe'
       }
-      
+
       notificationStore.showNotification(
-        errorMessage.value, 
+        errorMessage.value,
         'error'
       )
-    } 
+    }
     finally {
       isSubmitting.value =false
     }
@@ -101,6 +107,7 @@ export default function useTeam() {
     errorMessage,
     updateTeam,
     addMember,
-    removeMember
+    removeMember,
+    leader
   }
 }

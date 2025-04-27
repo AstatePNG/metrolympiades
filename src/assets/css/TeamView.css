@@ -133,11 +133,11 @@
     padding: 1.5rem;
     margin: 1rem;
   }
-  
+
   .input-with-button {
     flex-direction: column;
   }
-  
+
   .add-btn {
     width: 100%;
   }
