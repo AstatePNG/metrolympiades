@@ -1,5 +1,269 @@
-@import 'tailwindcss';
+.container {
+  width: 100%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
 
-#leaderboard .card:hover {
-    cursor: pointer;
+.container h1{
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a1a2e;
+}
+
+#leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  animation: slideIn 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  color: #000000; 
+}
+
+.card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.match-card:hover{
+  transform: translateX(0px);
+}
+
+.card-header {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  color: #000000; 
+}
+
+.card-header p {
+  width: 100%;
+  margin: 0;
+  color: #000000;
+}
+
+/*si les details ne sont pas affichés et que l'element 
+est survolé alors décalé de 40px 
+vers la gauche pour afficher un message "Plus de détails"*/
+.card:not(.details-open):hover .card-header{
+  transform: translateX(-40px);
+}
+
+.click-indicator {
+  position: absolute;
+  right: -100px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 0.8rem;
+  color: #4ecca3;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+/* ne pas afficher par défaut */
+.card .click-indicator {
+  transform: translateX(100px);
+}
+
+/* au survol l'afficher */
+.card:not(.details-open):hover .click-indicator {
+  transform: translateX(-100px);
+}
+
+.click-indicator i {
+  margin-left: 5px;
+}
+
+.team-info-title {
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-right: 10px;
+}
+
+.team-score {
+  font-weight: 700;
+  color: #4ecca3;
+  float: right;
+}
+
+.card.team-members{
+  color: #000000;
+}
+
+.team-leader, .team-members {
+  color: #000000;
+  margin: 5px 0;
+  display: block;
+}
+
+.team-composition {
+  margin-bottom: 1.5rem;
+}
+
+.team-history p {
+  margin-bottom: 1rem;
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+  color: #666;
+}
+
+.card.podium {
+  border-width: 2px;
+  transform: scale(1.01);
+}
+
+.card.first-place{
+  border-color: gold;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.card.second-place {
+  border-color: silver;
+  box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
+}
+
+.card.third-place{
+  border-color: #cd7f32;
+  box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
+}
+
+.card.third-place .card-header {
+  background-color: rgba(205, 127, 50, 0.1);
+  position: relative;
+}
+
+.match-card {
+  background-color: #f9f9f9;
+  color: #000000;
+  transition: transform 0.2s ease;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+
+.match-card .card-header {
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  transform: translateX(0px);
+}
+
+.match-card .card-body {
+  padding: 12px 15px;
+}
+
+.match-score{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.score-label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.score-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #f0f0f0;
+  padding: 0 10px;
+  border-radius: 4px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.match-result {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.result-victory {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.result-defeat {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+}
+
+.result-draw {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #ef6c00;
+}
+
+.score-separator {
+  font-weight: 600;
+  margin: 0 10px;
+  color: #666;
+}
+
+.activity-icon {
+  margin-right: 8px;
+  opacity: 0.8;
+}
+
+.match-date {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+  font-style: italic;
+}
+
+@keyframes slideIn{
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+  
+  .card-header, .card-body {
+    padding: 1rem;
+  }
 }
