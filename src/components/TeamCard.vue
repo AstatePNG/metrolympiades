@@ -67,13 +67,13 @@ function getResultClass(result) {
           <span class="team-leader">Capitaine : {{ team.leader }}</span
           ><br />
           <span class="team-members">Membres : </span><br />
-          <span v-if="!team.members"> Cette équipe n'a pas d'autres membres. </span>
-          <span>{{ team.members }}</span>
+          <span class="no-data" v-if="!team.members"> Cette équipe n'a pas d'autres membres. </span>
+          <span class="members">{{ team.members }}</span>
         </p>
       </div>
       <div class="team-history" v-if="team.history">
         <p><span class="team-info-title">Matchs les plus récents :</span></p>
-        <p v-if="!team.history || team.history.length === 0">
+        <p class="no-data" v-if="!team.history || team.history.length === 0">
           Cette équipe n'a pas encore joué de match.
         </p>
         <div

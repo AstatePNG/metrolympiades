@@ -267,3 +267,12 @@ vers la gauche pour afficher un message "Plus de détails"*/
     padding: 1rem;
   }
 }
+
+.members {
+  color: #000000;
+}
+
+.no-data {
+  color:#666;
+  font-style: italic;
+}
