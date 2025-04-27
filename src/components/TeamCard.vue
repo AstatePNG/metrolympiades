@@ -60,8 +60,8 @@ function getResultClass(result) {
       <span>Plus de détails</span>
       <i>→</i>
     </div>
-    <div class="card-body" v-if="visible">
-      <div class="team-composition">
+    <div class="card-body flex" v-if="visible">
+      <div class="team-composition left">
         <p>
           <span class="team-info-title">Composition de l'équipe:</span>
           <span class="team-leader">Capitaine : {{ team.leader }}</span
@@ -71,7 +71,7 @@ function getResultClass(result) {
           <span class="members">{{ team.members }}</span>
         </p>
       </div>
-      <div class="team-history" v-if="team.history">
+      <div class="team-history right" v-if="team.history">
         <p><span class="team-info-title">Matchs les plus récents :</span></p>
         <p class="no-data" v-if="!team.history || team.history.length === 0">
           Cette équipe n'a pas encore joué de match.
@@ -81,10 +81,12 @@ function getResultClass(result) {
           v-for="(match, index) in team.history.slice(0, 5)"
           :key="index"
         >
-          <header class="card-header">
-            <span class="activity-icon">{{ getActivityIcon(match.activity) }}</span>
-            {{ match.activity }} contre {{ ' ' + match.opponent + ' ' }}
-            <div class="match-date">{{ ' ' + match.date }}</div>
+          <header class="card-header flex-column">
+            <div class="left">
+              <span class="activity-icon">{{ getActivityIcon(match.activity) }}</span>
+              <span class="match-title">{{ match.activity }} contre {{ ' ' + match.opponent + ' ' }}</span>
+            </div>
+            <div class="match-date right">{{ ' ' + match.date }}</div>
           </header>
           <div class="card-body">
             <div class="match-score">
