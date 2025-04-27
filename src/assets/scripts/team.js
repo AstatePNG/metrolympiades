@@ -71,6 +71,25 @@ export default function useTeam() {
       isSubmitting.value = true
       errorMessage.value = ''
 
+      //vérifier si nouveau nom pas déjà pris
+      const teamsResponse = await teamService.getAllTeams()
+      const teams = teamsResponse.data
+
+      const myTeamResponse = await teamService.getMyTeam()
+      const myTeamId = myTeamResponse.data.id
+
+      //permet de vérifier si le nom est celui de notre équipe
+      const nameAlreadyTaken = teams.some(team =>
+        team.name.toLowerCase() === teamName.value.trim().toLowerCase() &&
+        team.id !== myTeamId
+      )
+
+      if (nameAlreadyTaken) {
+        notificationStore.showNotification("Ce nom d'équipe est déjà pris. Choisissez-en un autre  !", 'error')
+        return
+      }
+
+
       await teamService.updateMyTeam(teamName.value, members.value)
 
       notificationStore.showNotification(
